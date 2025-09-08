@@ -74,40 +74,47 @@ export default function HomeScreen() {
   const [userLocation, setUserLocation] = useState(null);
   const [truckLocation, setTruckLocation] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Configurar permisos
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        alert("Permiso de ubicación denegado");
-        return;
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          throw new Error("Permiso de ubicación denegado");
+        }
+
+        await Location.requestBackgroundPermissionsAsync();
+        await Notifications.requestPermissionsAsync();
+
+        let loc = await Location.getCurrentPositionAsync({});
+        setUserLocation({
+          latitude: loc.coords.latitude,
+          longitude: loc.coords.longitude,
+        });
+
+        await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 5000,
+          distanceInterval: 10,
+          showsBackgroundLocationIndicator: true,
+          foregroundService: {
+            notificationTitle: "Rastreo en segundo plano",
+            notificationBody: "La app está rastreando tu ubicación",
+          },
+        });
+
+        setInterval(() => {
+          setTruckLocation(getRandomTruckLocation());
+        }, 5000);
+
+        setLoading(false);
+      } catch (err) {
+        console.error("❌ Error en useEffect:", err);
+        setError(err.message || "Ocurrió un error inesperado");
+        setLoading(false);
       }
-      await Location.requestBackgroundPermissionsAsync();
-      await Notifications.requestPermissionsAsync();
-
-      let loc = await Location.getCurrentPositionAsync({});
-      setUserLocation({
-        latitude: loc.coords.latitude,
-        longitude: loc.coords.longitude,
-      });
-
-      await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-        accuracy: Location.Accuracy.High,
-        timeInterval: 5000,
-        distanceInterval: 10,
-        showsBackgroundLocationIndicator: true,
-        foregroundService: {
-          notificationTitle: "Rastreo en segundo plano",
-          notificationBody: "La app está rastreando tu ubicación",
-        },
-      });
-
-      setInterval(() => {
-        setTruckLocation(getRandomTruckLocation());
-      }, 5000);
-
-      setLoading(false);
     })();
   }, []);
 
@@ -116,6 +123,16 @@ export default function HomeScreen() {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#2e7d32" />
         <Text style={styles.loadingText}>Obteniendo ubicación...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={{ color: "red", fontSize: 16, textAlign: "center" }}>
+          ⚠️ {error}
+        </Text>
       </View>
     );
   }
