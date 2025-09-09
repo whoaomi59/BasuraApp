@@ -13,14 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyCZmApOQc5xq5rLmkqiOpGG7sqcs7_Z7L4"
-      }
+      },
+      "bundleIdentifier": "com.whoaomi11.basuraapp"
     },
     "android": {
       "package": "com.whoaomi11.basuraapp",
@@ -28,6 +27,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo2.png",
         "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "foregroundService": {
+        "notificationTitle": "Tu App está usando ubicación",
+        "notificationBody": "Estamos rastreando tu ubicación en segundo plano",
+        "notificationColor": "#FF0000"
       },
       "config": {
         "googleMaps": {
@@ -43,8 +52,6 @@
         "projectId": "0d64cef6-6eb8-49f8-90d2-70074c495455"
       }
     },
-    "plugins": [
-      "expo-router"
-    ]
+    "plugins": ["expo-router"]
   }
 }

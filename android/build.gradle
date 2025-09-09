@@ -32,6 +32,9 @@ allprojects {
     maven { url 'https://www.jitpack.io' }
   }
 }
+ext {
+    cmakeVersion = "3.28.3"
+}
 
 apply plugin: "expo-root-project"
 apply plugin: "com.facebook.react.rootproject"
