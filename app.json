@@ -34,11 +34,6 @@
         "ACCESS_BACKGROUND_LOCATION",
         "FOREGROUND_SERVICE"
       ],
-      "foregroundService": {
-        "notificationTitle": "Tu App está usando ubicación",
-        "notificationBody": "Estamos rastreando tu ubicación en segundo plano",
-        "notificationColor": "#FF0000"
-      },
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCZmApOQc5xq5rLmkqiOpGG7sqcs7_Z7L4"
