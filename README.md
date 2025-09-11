@@ -1,6 +1,6 @@
 # Aplicacion de recoleccion de basura 👋
 
-This is an [`Pagina Web`](https://whoaomi59.github.io/BasuraApp/).
+Esta es [`Pagina Web`](https://whoaomi59.github.io/BasuraApp/), de descarca.
 
 ## Get started
 
