@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download AppBasura v.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap");
+
+      body {
+        font-family: "Orbitron", sans-serif;
+      }
+
+      /* Efecto barrido de luz sobre el título */
+      .shine {
+        background: linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(0, 255, 255, 0.3) 50%,
+          transparent 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 3s linear infinite;
+      }
+      @keyframes shine {
+        from {
+          background-position: -200% 0;
+        }
+        to {
+          background-position: 200% 0;
+        }
+      }
+
+      /* Brillo que recorre el botón */
+      .glow-line::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.6),
+          transparent
+        );
+        transform: skewX(-25deg);
+        animation: slide 2s infinite;
+      }
+      @keyframes slide {
+        0% {
+          left: -75%;
+        }
+        100% {
+          left: 125%;
+        }
+      }
+
+      /* Movimiento suave de las luces flotantes */
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(-20px) translateX(15px);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden"
+  >
+    <!-- Luces flotantes -->
+    <div
+      class="absolute w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl -top-20 -left-20 float"
+    ></div>
+    <div
+      class="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl bottom-0 -right-20 float"
+      style="animation-delay: 3s"
+    ></div>
+
+    <!-- Contenido -->
+    <h1
+      class="shine text-4xl md:text-6xl font-extrabold mb-12 text-center tracking-widest drop-shadow-[0_0_15px_rgba(0,255,255,0.6)]"
+    >
+      AppBasura V.1
+    </h1>
+
+    <a
+      href="./AppBasura.apk"
+      download
+      class="relative px-10 py-4 text-lg font-bold rounded-full overflow-hidden group glow-line"
+    >
+      <span
+        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full blur-md opacity-75 group-hover:opacity-100 transition"
+      ></span>
+      <span
+        class="relative text-white group-hover:text-cyan-300 transition duration-300 ease-in-out tracking-widest"
+      >
+        🚀 DOWNLOAD
+      </span>
+    </a>
+  </body>
+</html>
